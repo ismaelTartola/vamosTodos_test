@@ -1,13 +1,12 @@
 ﻿
 using VamosTodos_Test.Application.Abstractions.Messaging;
 using VamosTodos_Test.Application.Contracts.Bug;
-using VamosTodos_Test.SharedKernel.MaybeObject;
 
-namespace VamosTodos_Test.Application.Bug.Querys.GetBugs;
+namespace VamosTodos_Test.Application.Bug.Querys.GetBugsBy;
 
-public sealed class GetBugsQuery : IQuery<GetBugsResponse>
+public sealed record GetBugsByQuery : IQuery<GetBugsResponse>
 {
-    public GetBugsQuery(Guid userId, Guid projectId, DateTime startDate, DateTime endDate)
+    public GetBugsByQuery(Guid userId, Guid projectId, DateTime startDate, DateTime endDate)
     {
         UserId = userId;
         ProjectId = projectId;

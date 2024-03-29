@@ -8,19 +8,19 @@ using VamosTodos_Test.Domain.Project;
 using VamosTodos_Test.Domain.User;
 using VamosTodos_Test.SharedKernel.MaybeObject;
 
-namespace VamosTodos_Test.Application.Bug.Querys.GetBugs;
+namespace VamosTodos_Test.Application.Bug.Querys.GetBugsBy;
 
 
-public sealed class GetBugsQueryHandler : IQueryHandler<GetBugsQuery, GetBugsResponse>
+public sealed class GetBugsByQueryHandler : IQueryHandler<GetBugsByQuery, GetBugsResponse>
 {
     private readonly IDbContext _dbContext;
 
-    public GetBugsQueryHandler(IDbContext dbContext)
+    public GetBugsByQueryHandler(IDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<Maybe<GetBugsResponse>> Handle(GetBugsQuery request, CancellationToken cancellationToken)
+    public async Task<Maybe<GetBugsResponse>> Handle(GetBugsByQuery request, CancellationToken cancellationToken)
     {
         IQueryable<BugEntity> queryable = _dbContext.Set<BugEntity>();
 
@@ -39,7 +39,7 @@ public sealed class GetBugsQueryHandler : IQueryHandler<GetBugsQuery, GetBugsRes
             queryable = queryable.Where(x => x.BugCreationDate.Value >= request.StartDate);
         }
 
-        if (request.EndDate != DateTime.MinValue)
+        if (request.EndDate != DateTime.MinValue && (request.StartDate != request.EndDate))
         {
             queryable = queryable.Where(x => x.BugCreationDate.Value <= request.EndDate);
         }
@@ -55,7 +55,7 @@ public sealed class GetBugsQueryHandler : IQueryHandler<GetBugsQuery, GetBugsRes
                                     user.LastName.Value),
                                 new
                                     ProjectDto(project.Id,
-                                    project.ProjectDescription.Value,
+                                    project.ProjectName.Value,
                                     project.ProjectDescription.Value),
                                 bug.BugCreationDate.Value);
 

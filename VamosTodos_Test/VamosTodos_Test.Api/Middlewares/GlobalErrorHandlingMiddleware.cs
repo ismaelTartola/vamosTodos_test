@@ -2,7 +2,7 @@
 using VamosTodos_Test.Application.Abstractions.Services;
 using VamosTodos_Test.Application.Exceptions;
 using VamosTodos_Test.Domain.Errors;
-using VamosTodos_Test.Presentation.Abstractions.ApiResponces;
+using VamosTodos_Test.Application.Abstractions.ApiResponces;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace VamosTodos_Test.Api.Middlewares;

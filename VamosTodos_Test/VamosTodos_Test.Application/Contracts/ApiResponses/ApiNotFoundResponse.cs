@@ -1,4 +1,5 @@
-﻿namespace VamosTodos_Test.Presentation.Abstractions.ApiResponces;
+﻿
+namespace VamosTodos_Test.Application.Abstractions.ApiResponces;
 
 public class ApiNotFoundResponse(object result = default!
     , string message = default!

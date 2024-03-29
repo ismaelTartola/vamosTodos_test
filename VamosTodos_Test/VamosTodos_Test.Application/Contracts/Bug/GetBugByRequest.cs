@@ -1,13 +1,8 @@
 ﻿
 namespace VamosTodos_Test.Application.Contracts.Bug;
 
-public record GetBugRequest
+public sealed record GetBugByRequest(Guid ProjectId, Guid UserId, DateTime StartDate, DateTime EndDate)
 {
-    public Guid ProjectId { get; set; } = Guid.Empty;
-    public Guid UserId { get; set; } = Guid.Empty;
-    public DateTime StartDate { get; set; } = DateTime.MinValue;
-    public DateTime EndDate { get; set; } = DateTime.MinValue;
-
     public bool InvalidRequest => (ProjectId == Guid.Empty
         && UserId == Guid.Empty
         && StartDate == DateTime.MinValue

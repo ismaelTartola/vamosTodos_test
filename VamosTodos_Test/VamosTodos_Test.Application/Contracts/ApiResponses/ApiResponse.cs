@@ -1,4 +1,4 @@
-﻿namespace VamosTodos_Test.Presentation.Abstractions.ApiResponces;
+﻿namespace VamosTodos_Test.Application.Abstractions.ApiResponces;
 
 public abstract class ApiResponse
 {

@@ -1,7 +1,8 @@
-﻿using VamosTodos_Test.Presentation.Abstractions.ApiResponces;
+﻿
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using VamosTodos_Test.Application.Abstractions.ApiResponces;
 
 namespace VamosTodos_Test.Presentation.Abstractions;
 
@@ -20,7 +21,7 @@ public abstract class ApiController : ControllerBase
 
     protected IActionResult BadRequest(IResult problemDetail) => base.BadRequest(new ApiBadRequestResponse(problemDetail));
 
-    protected new IActionResult Ok(object? value = default) => base.Ok(new ApiOkResponse(value));
+    protected new IActionResult Ok(object? value = default) => base.Ok(value);
     
     protected IActionResult NotFound(IResult problemDetail) => base.NotFound(new ApiNotFoundResponse(problemDetail));
 

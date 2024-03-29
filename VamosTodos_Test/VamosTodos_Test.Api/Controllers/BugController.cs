@@ -3,16 +3,17 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using VamosTodos_Test.Api.Abstractions.ApiResponces;
 using VamosTodos_Test.Api.Presentation.Extensions;
 using VamosTodos_Test.Application.Bug.Commands.CreateBugCommand;
-using VamosTodos_Test.Application.Bug.Querys.GetBugs;
+using VamosTodos_Test.Application.Bug.Querys.GetBugsBy;
 using VamosTodos_Test.Application.Contracts.Bug;
 using VamosTodos_Test.Domain.Errors;
 using VamosTodos_Test.Presentation.Abstractions;
-using VamosTodos_Test.Presentation.Abstractions.ApiResponces;
 using VamosTodos_Test.SharedKernel.MaybeObject;
 using VamosTodos_Test.SharedKernel.ResultObject;
+using VamosTodos_Test.Application.Bug.Querys.GetBugsAll;
+using VamosTodos_Test.Application.Abstractions.ApiResponces;
+using VamosTodos_Test.Application.Contracts.ApiResponces;
 
 namespace VamosTodos_Test.Api.Controllers;
 
@@ -24,9 +25,9 @@ public class BugController : ApiController
     }
 
     [HttpPost("create")]
-    [ProducesResponseType(typeof(ApiOkResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(GetBugsResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ApiBadRequestResponse), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(MethodNotAllowedresponse), (int)HttpStatusCode.MethodNotAllowed)]
+    [ProducesResponseType(typeof(ApiMethodNotAllowedResponse), (int)HttpStatusCode.MethodNotAllowed)]
     public async Task<IActionResult> CreateBug([FromQuery] CreateBugRequest request
         , CancellationToken cancellationToken) 
     {
@@ -38,10 +39,11 @@ public class BugController : ApiController
         );
     }
 
-    [ProducesResponseType(typeof(ApiOkResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(BugDto), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ApiBadRequestResponse), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(MethodNotAllowedresponse), (int)HttpStatusCode.MethodNotAllowed)]
-    public async Task<IActionResult> GetBugs([FromQuery] GetBugRequest request)
+	[ProducesResponseType(typeof(ApiNotFoundResponse), (int)HttpStatusCode.NotFound)]
+	[ProducesResponseType(typeof(ApiMethodNotAllowedResponse), (int)HttpStatusCode.MethodNotAllowed)]
+    public async Task<IActionResult> GetBugsBy([FromQuery] GetBugByRequest request)
     {
         if (request.InvalidRequest)
         {
@@ -54,9 +56,20 @@ public class BugController : ApiController
                 .ToProblemDetails());
         }
 
-        return await Maybe<GetBugsQuery>
-                .From(_mapper.Map<GetBugsQuery>(request))
+        return await Maybe<GetBugsByQuery>
+                .From(_mapper.Map<GetBugsByQuery>(request))
                 .Bind(query => _sender.Send(query))
                 .Match(Ok, NotFound);
     }
+
+	[HttpGet("all")]
+	[ProducesResponseType(typeof(GetBugsResponse), (int)HttpStatusCode.OK)]
+	[ProducesResponseType(typeof(ApiNotFoundResponse), (int)HttpStatusCode.NotFound)]
+	public async Task<IActionResult> GetBugsAll()
+	{
+		return await Maybe<GetBugsAllQuery>
+				.From(new GetBugsAllQuery())
+				.Bind(query => _sender.Send(query))
+				.Match(Ok, NotFound);
+	}
 }

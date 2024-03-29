@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamosTodos_Test.Api", "VamosTodos_Test.Api\VamosTodos_Test.Api.csproj", "{18C2DA5F-8F68-4CD2-B756-C94E93D31C2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.Api", "VamosTodos_Test.Api\VamosTodos_Test.Api.csproj", "{18C2DA5F-8F68-4CD2-B756-C94E93D31C2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{01D5A9D5-A2C2-4D59-A6FE-332155919576}"
 EndProject
@@ -11,13 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B4D2E016-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.SharedKernel", "VamosTodos_Test.SharedKernel\VamosTodos_Test.SharedKernel.csproj", "{5A1E6981-5180-4A3F-A692-BA34FC0D2AEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamosTodos_Test.Domain", "VamosTodos_Test.Domain\VamosTodos_Test.Domain.csproj", "{F300EFD0-3B8E-47A8-BA6E-0F5F48E5F11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.Domain", "VamosTodos_Test.Domain\VamosTodos_Test.Domain.csproj", "{F300EFD0-3B8E-47A8-BA6E-0F5F48E5F11A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamosTodos_Test.Application", "VamosTodos_Test.Application\VamosTodos_Test.Application.csproj", "{6283915C-0EE0-46F3-9F67-3B314261C664}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.Application", "VamosTodos_Test.Application\VamosTodos_Test.Application.csproj", "{6283915C-0EE0-46F3-9F67-3B314261C664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamosTodos_Test.Persistence", "VamosTodos_Test.Persistence\VamosTodos_Test.Persistence.csproj", "{C4EEAAE3-D73D-47FE-B329-BF6DF2A84C0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.Persistence", "VamosTodos_Test.Persistence\VamosTodos_Test.Persistence.csproj", "{C4EEAAE3-D73D-47FE-B329-BF6DF2A84C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamosTodos_Test.Infraestructure", "VamosTodos_Test.Infraestructure\VamosTodos_Test.Infraestructure.csproj", "{26A0DCA9-0BC0-4C80-B89D-08F111081567}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.Infraestructure", "VamosTodos_Test.Infraestructure\VamosTodos_Test.Infraestructure.csproj", "{26A0DCA9-0BC0-4C80-B89D-08F111081567}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebClient", "WebClient", "{BE6BE2A1-F822-4266-9D81-989653C1D06C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VamosTodos_Test.App", "VamosTodos_Test.App\VamosTodos_Test.App.csproj", "{577DCE23-0301-4455-8CAB-659C59630D80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{26A0DCA9-0BC0-4C80-B89D-08F111081567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26A0DCA9-0BC0-4C80-B89D-08F111081567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26A0DCA9-0BC0-4C80-B89D-08F111081567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577DCE23-0301-4455-8CAB-659C59630D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577DCE23-0301-4455-8CAB-659C59630D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577DCE23-0301-4455-8CAB-659C59630D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577DCE23-0301-4455-8CAB-659C59630D80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{6283915C-0EE0-46F3-9F67-3B314261C664} = {B4D2E016-7F40-4B14-82F1-55F9E0ED5027}
 		{C4EEAAE3-D73D-47FE-B329-BF6DF2A84C0A} = {B4D2E016-7F40-4B14-82F1-55F9E0ED5027}
 		{26A0DCA9-0BC0-4C80-B89D-08F111081567} = {B4D2E016-7F40-4B14-82F1-55F9E0ED5027}
+		{577DCE23-0301-4455-8CAB-659C59630D80} = {BE6BE2A1-F822-4266-9D81-989653C1D06C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10E87BE2-9D21-4C8C-8D04-810F0E132B2E}

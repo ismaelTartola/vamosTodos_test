@@ -19,6 +19,7 @@ builder.Services
     .AddPresentation()
     .AddPersistence();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +32,13 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
     InitializeDatabase.Initialize(context);
 }
+
+app.UseCors(cors => cors
+.AllowAnyMethod()
+.AllowAnyHeader()
+.SetIsOriginAllowed(origin => true)
+.AllowCredentials()
+);
 
 app.UseSerilogRequestLogging();
 
