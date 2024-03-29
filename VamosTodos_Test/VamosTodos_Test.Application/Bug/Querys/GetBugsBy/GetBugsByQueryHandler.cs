@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using VamosTodos_Test.Application.Abstractions.Data;
 using VamosTodos_Test.Application.Abstractions.Messaging;
 using VamosTodos_Test.Application.Contracts.Bug;
+using VamosTodos_Test.Application.Contracts.Project;
+using VamosTodos_Test.Application.Contracts.User;
 using VamosTodos_Test.Domain.Bug;
 using VamosTodos_Test.Domain.Project;
 using VamosTodos_Test.Domain.User;

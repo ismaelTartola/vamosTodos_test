@@ -63,12 +63,22 @@ else
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>User Id</label>
-							<input @bind="UserId" type="text" class="form-control" required>
+							<label>Select User</label>
+							<InputSelect @bind-Value="UserId">
+								@foreach (var user in Users!)
+								{
+									<option value="@user.Id">@user.FirstName @user.LastName</option>
+								}
+							</InputSelect>
 						</div>
 						<div class="form-group">
-							<label>Project Id</label>
-							<input @bind="ProjectId" type="text" class="form-control" required>
+							<label>Select Project</label>
+							<InputSelect @bind-Value="ProjectId">
+								@foreach (var proj in Projects!)
+								{
+									<option value="@proj.Id">@proj.ProjectName</option>
+								}
+							</InputSelect>
 						</div>
 						<div class="form-group">
 							<label>Description</label>

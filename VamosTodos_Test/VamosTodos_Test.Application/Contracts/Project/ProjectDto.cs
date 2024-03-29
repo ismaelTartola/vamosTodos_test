@@ -1,5 +1,4 @@
-﻿
-namespace VamosTodos_Test.Application.Contracts.Bug;
+﻿namespace VamosTodos_Test.Application.Contracts.Project;
 
 public sealed record ProjectDto(Guid Id,
     string ProjectName,

@@ -11,6 +11,8 @@ using VamosTodos_Test.Domain.Project;
 using VamosTodos_Test.Domain.Bug;
 using VamosTodos_Test.Domain.Bug.ValueObjects;
 using VamosTodos_Test.Domain.Project.Errors;
+using VamosTodos_Test.Application.Contracts.User;
+using VamosTodos_Test.Application.Contracts.Project;
 
 namespace VamosTodos_Test.Application.Bug.Commands.CreateBugCommand;
 
