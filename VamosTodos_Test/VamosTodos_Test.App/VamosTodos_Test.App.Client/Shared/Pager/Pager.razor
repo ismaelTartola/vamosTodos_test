@@ -8,7 +8,7 @@
 	<div class="clearfix">
 		<div class="hint-text">Showing <b>@PagedResult.PageSize</b> out of <b>@PagedResult.TotalCount</b> entries</div>
 		<ul class="pagination">
-			<li class="page-item @(!PagedResult.HasPreviusPage ? "disabled" : "")"><a href="#">Previous</a></li>
+			<li class="page-item @(!PagedResult.HasPreviusPage ? "disabled" : "")"><a @onclick="(() => PagerButtonClicked(PagedResult.Page - 1))">Previous</a></li>
 			@{
 				for (int i = 1; i <= GetPagesNumber(); i++)
 				{
@@ -18,8 +18,8 @@
 						<a @onclick="(() => PagerButtonClicked(currentIndex))" class="page-link">@i</a>
 					</li>
 				}
-			}				
-			<li class="page-item @(!PagedResult.HasNextPage ? "disabled" : "")"><a href="#" class="page-link">Next</a></li>
+			}
+			<li class="page-item @(!PagedResult.HasNextPage ? "disabled" : "")"><a @onclick="(() => PagerButtonClicked(PagedResult.Page + 1))" class="page-link">Next</a></li>
 		</ul>
 	</div>
 }
