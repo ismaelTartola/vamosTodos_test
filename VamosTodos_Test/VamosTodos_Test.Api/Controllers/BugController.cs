@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using VamosTodos_Test.Api.Presentation.Extensions;
 using VamosTodos_Test.Application.Bug.Commands.CreateBugCommand;
-using VamosTodos_Test.Application.Bug.Querys.GetBugsBy;
 using VamosTodos_Test.Application.Contracts.Bug;
 using VamosTodos_Test.Domain.Errors;
 using VamosTodos_Test.Presentation.Abstractions;
 using VamosTodos_Test.SharedKernel.MaybeObject;
 using VamosTodos_Test.SharedKernel.ResultObject;
-using VamosTodos_Test.Application.Bug.Querys.GetBugsAll;
 using VamosTodos_Test.Application.Abstractions.ApiResponces;
 using VamosTodos_Test.Application.Contracts.ApiResponces;
+using VamosTodos_Test.Application.Common.Pagination;
+using VamosTodos_Test.Application.Bug.Querys.GetBugsPagedBy;
+using VamosTodos_Test.Application.Bug.Querys.GetBugsAllPaged;
 
 namespace VamosTodos_Test.Api.Controllers;
 
@@ -25,7 +26,7 @@ public class BugController : ApiController
     }
 
     [HttpPost("create")]
-    [ProducesResponseType(typeof(GetBugsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(BugDto), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ApiBadRequestResponse), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(ApiMethodNotAllowedResponse), (int)HttpStatusCode.MethodNotAllowed)]
     public async Task<IActionResult> CreateBug([FromQuery] CreateBugRequest request
@@ -39,11 +40,11 @@ public class BugController : ApiController
         );
     }
 
-    [ProducesResponseType(typeof(BugDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(PagedList<BugDto>), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ApiBadRequestResponse), (int)HttpStatusCode.BadRequest)]
 	[ProducesResponseType(typeof(ApiNotFoundResponse), (int)HttpStatusCode.NotFound)]
 	[ProducesResponseType(typeof(ApiMethodNotAllowedResponse), (int)HttpStatusCode.MethodNotAllowed)]
-    public async Task<IActionResult> GetBugsBy([FromQuery] GetBugByRequest request)
+    public async Task<IActionResult> GetBugsByPaged([FromQuery] GetBugByPagedRequest request)
     {
         if (request.InvalidRequest)
         {
@@ -56,19 +57,19 @@ public class BugController : ApiController
                 .ToProblemDetails());
         }
 
-        return await Maybe<GetBugsByQuery>
-                .From(_mapper.Map<GetBugsByQuery>(request))
+        return await Maybe<GetBugsByPagedQuery>
+                .From(_mapper.Map<GetBugsByPagedQuery>(request))
                 .Bind(query => _sender.Send(query))
                 .Match(Ok, NotFound);
     }
 
 	[HttpGet("all")]
-	[ProducesResponseType(typeof(GetBugsResponse), (int)HttpStatusCode.OK)]
+	[ProducesResponseType(typeof(PagedList<BugDto>), (int)HttpStatusCode.OK)]
 	[ProducesResponseType(typeof(ApiNotFoundResponse), (int)HttpStatusCode.NotFound)]
-	public async Task<IActionResult> GetBugsAll()
+	public async Task<IActionResult> GetBugsAllPaged([FromQuery] GetBugsAllPagedRequest request)
 	{
-		return await Maybe<GetBugsAllQuery>
-				.From(new GetBugsAllQuery())
+		return await Maybe<GetBugsAllPagedQuery>
+				.From(_mapper.Map<GetBugsAllPagedQuery>(request))
 				.Bind(query => _sender.Send(query))
 				.Match(Ok, NotFound);
 	}
