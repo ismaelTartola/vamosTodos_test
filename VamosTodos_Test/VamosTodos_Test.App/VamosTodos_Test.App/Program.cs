@@ -1,8 +1,7 @@
 
 using VamosTodos_Test.App.Client.Pages;
-using VamosTodos_Test.App.Components;
 using VamosTodos_Test.App.Shared;
-using VamosTodos_Test.App.Shared.Alert;
+using VamosTodos_Test.App.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

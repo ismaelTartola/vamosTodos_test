@@ -28,7 +28,7 @@ public class BugsBase : ComponentBase
     public NavigationManager UriHelper { get; set; } = null!;
 
 	[Parameter]
-	public int Page { get; set; } = 1;
+	public int Page { get; set; }
 
 	protected CustomPagedList<BugDto>? Bugs { get; set; } = null;
 
@@ -50,16 +50,15 @@ public class BugsBase : ComponentBase
 
     protected DateTime FilterEndDate { get; set; } = DateTime.UtcNow;
 
-
+	
 	protected async override Task OnInitializedAsync()
     {
-		if (Page == 0)
-			Page = 1;
+		Page = (Page == 0) ? 1 : Page;
 
 		await GetBugAllPaged();
 		await GetProjectAll();
-		await GetUsersAll();		
-    }
+		await GetUsersAll();
+	}
 
     protected async Task GetBugAllPaged()
     {
@@ -69,10 +68,18 @@ public class BugsBase : ComponentBase
 
 			var response = await BugService.GetBugsAllPaged(request);
 
+			if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+			{
+				Bugs = new CustomPagedList<BugDto>(new List<BugDto>(), Page, 3, 0);
+				return;
+			}
+
 			if (!response.IsSuccessStatusCode)
 				throw new Exception($"{response.StatusCode}: {response.ReasonPhrase}");
+			
 
-			CustomPagedList<BugDto>? responseObject = await response.Content.ReadFromJsonAsync<CustomPagedList<BugDto>>();
+			CustomPagedList<BugDto>? responseObject 
+				= await response.Content.ReadFromJsonAsync<CustomPagedList<BugDto>>();
 
 			Bugs = responseObject;
 		}
@@ -110,10 +117,17 @@ public class BugsBase : ComponentBase
 
 			var response = await BugService.GetBugsByPaged(request);
 
-			if (!response.IsSuccessStatusCode)
-				throw new Exception($"{response.StatusCode}: {response.ReasonPhrase}");
+			if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+			{
+				Bugs = new CustomPagedList<BugDto>(new List<BugDto>(), Page, 3, 0);
+				return;
+			}
 
-			CustomPagedList<BugDto>? responseObject = await response.Content.ReadFromJsonAsync<CustomPagedList<BugDto>>();
+			if (!response.IsSuccessStatusCode)
+				throw new Exception($"{response.StatusCode}: {response.ReasonPhrase}");			
+
+			CustomPagedList<BugDto>? responseObject
+				= await response.Content.ReadFromJsonAsync<CustomPagedList<BugDto>>();
 
 			Bugs = responseObject;
 

@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\VamosTodos_Test.App.Shared\VamosTodos_Test.App.Shared.csproj" />
   </ItemGroup>
 

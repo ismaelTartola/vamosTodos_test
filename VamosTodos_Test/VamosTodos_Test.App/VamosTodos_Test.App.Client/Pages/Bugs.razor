@@ -1,14 +1,12 @@
-﻿@page "/"
-@page "/{Page:int}"
+﻿@page "/{Page:int?}"
 @using VamosTodos_Test.App.Client.Shared.Pager
 @using VamosTodos_Test.App.Client.Pages
 @using VamosTodos_Test.Application.Contracts.Bug
-@rendermode InteractiveAuto
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+
 @inherits BugsBase
 
-
 <h3>Bugs</h3>
-
 
 @if (Bugs is null)
 {
@@ -33,28 +31,37 @@ else
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Description</th>
-							<th>Project</th>
-							<th>User</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach(BugDto bug in Bugs.Items!)
-						{
-							<tr>								
-								<td>@bug.Id</td>
-								<td>@bug.Description</td>
-								<td>@bug.Project.ProjectName - Id: @bug.Project.Id</td>
-								<td>@bug.User.FirstName @bug.User.FirstName - Id: @bug.User.Id</td>
+				@if(Bugs?.Items?.Count > 0)
+				{
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Description</th>
+								<th>Project</th>
+								<th>User</th>
 							</tr>
-						}
-					</tbody>
-				</table>
-				<Pager T="@BugDto" PageChanged="@PagerPageChanged" PagedResult="@Bugs" />
+						</thead>
+						<tbody>
+							@foreach (BugDto bug in Bugs?.Items!)
+							{
+								<tr>
+									<td>@bug.Id</td>
+									<td>@bug.Description</td>
+									<td>@bug.Project.ProjectName - Id: @bug.Project.Id</td>
+									<td>@bug.User.FirstName @bug.User.FirstName - Id: @bug.User.Id</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+					<Pager T="@BugDto" PageChanged="@PagerPageChanged" PagedResult="@Bugs" />
+				}
+				else
+				{
+					<div class="fs-2 mb-3 alert alert-warning" role="alert">
+						There are no results to display <i class="bi bi-emoji-frown"></i>
+					</div>
+				}
 			</div>
 		</div>
 	</div>
@@ -110,14 +117,24 @@ else
 						<h4 class="modal-title">Filter Bugs</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body">						
 						<div class="form-group">
-							<label>Add Filter By User Id</label>
-							<input @bind="FilterUserId" type="text" class="form-control" required>
+							<label>Select User</label>
+							<InputSelect @bind-Value="FilterUserId">
+								@foreach (var user in Users!)
+								{
+									<option value="@user.Id">@user.FirstName @user.LastName</option>
+								}
+							</InputSelect>
 						</div>
 						<div class="form-group">
-							<label>Add Filter By ProjectId</label>
-							<input @bind="FilterProjectId" type="text" class="form-control" required>
+							<label>Select Project</label>
+							<InputSelect @bind-Value="FilterProjectId">
+								@foreach (var proj in Projects!)
+								{
+									<option value="@proj.Id">@proj.ProjectName</option>
+								}
+							</InputSelect>
 						</div>
 						<div class="form-group">
 							<label>Filter Bugs From Date</label>
