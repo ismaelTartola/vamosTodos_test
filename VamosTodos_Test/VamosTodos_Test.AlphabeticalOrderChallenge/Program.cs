@@ -23,6 +23,7 @@ static string OrdenarFrase(string frase)
 	// Reconstruir la cadena ordenada
 	string sortedString = new string(characters);
 
+	// Colocar los white spaces
 	int spaceLengCount = 0;
 	for (int i = 0; i < fraseArray.Length - 1; i++)
 	{
